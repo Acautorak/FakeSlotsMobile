@@ -22,7 +22,7 @@ public class Reel : MonoBehaviour
 
     private void OnStartSpin()
     {
-
+    //start spinning the reel
     }
     
     private void OnEndSpin()
