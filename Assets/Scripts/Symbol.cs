@@ -8,7 +8,7 @@ public class Symbol : MonoBehaviour
         White = 2,
         Green = 3,
     }
-
+ 
     public SymbolType type;
 
 
