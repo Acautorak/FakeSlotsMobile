@@ -6,10 +6,11 @@ public class Slotmachine : MonoBehaviour
     public static Slotmachine Instance { get; private set; }
     [SerializeField]
     private Reel[] reels;
-    private bool isSpinning = false;
+    private bool isAllReelsSpinning = false;
 
     public Action onSpinStart;
     public Action onSpinEnd;
+    public Action OnSlam;
 
     private void Awake()
     {
@@ -23,22 +24,35 @@ public class Slotmachine : MonoBehaviour
         }
     }
 
-    private void StartSpint()
+    private void StartSpin()
     {
         onSpinStart?.Invoke();
+        isAllReelsSpinning = true;
+    }
+
+    private void StopSpin()
+    {
+        onSpinEnd?.Invoke();
+        isAllReelsSpinning = false;
+    }
+
+    private void Slam()
+    {
+        OnSlam?.Invoke();
+        isAllReelsSpinning = false;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isSpinning)
+        if (Input.GetKeyDown(KeyCode.Space) && !isAllReelsSpinning)
         {
-            isSpinning = true;
-            onSpinStart?.Invoke();
+            isAllReelsSpinning = true;
+            StartSpin();
         }
-        
-        if (Input.GetKeyDown(KeyCode.Space) && isSpinning)
+
+        if (Input.GetKeyDown(KeyCode.Space) && isAllReelsSpinning)
         {
-            isSpinning = false;
+            isAllReelsSpinning = false;
             onSpinEnd?.Invoke();
         }
     }
