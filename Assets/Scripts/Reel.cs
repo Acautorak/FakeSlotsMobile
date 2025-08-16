@@ -8,6 +8,11 @@ public class Reel : MonoBehaviour
     [SerializeField]
     private Transform[] symbolAnchors;
 
+    [SerializeField]
+    private Transform[] symbols;
+
+    [SerializeField]
+    private float spinSpeed = 5f;
     private bool _isSpinning = false;
     private bool _shouldStartSpinning = false;
 
@@ -25,7 +30,10 @@ public class Reel : MonoBehaviour
     {
         if (_shouldStartSpinning)
         {
-            
+            foreach (var symbol in symbols)
+            { 
+                symbol.position += spinSpeed * Time.deltaTime * Vector3.down;
+            }
         }
     }
 
@@ -39,9 +47,6 @@ public class Reel : MonoBehaviour
 
     private void OnStartSpin()
     {
-        if (_isSpinning)
-            return;
-
         _shouldStartSpinning = true;
         _isSpinning = true;
 
